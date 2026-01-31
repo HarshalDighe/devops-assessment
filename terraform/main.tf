@@ -3,8 +3,8 @@ provider "aws" {
 }
 
 resource "aws_instance" "devops_vm" {
-  ami           = "ami-0f5ee92e2d63afc18"
-  instance_type = "t2.micro"
+  ami           = "ami-019715e0d74f695be"
+  instance_type = "t3.micro"
   key_name      = "devops"
 
   vpc_security_group_ids = [aws_security_group.allow_web.id]
@@ -34,6 +34,13 @@ resource "aws_security_group" "allow_web" {
   ingress {
     from_port   = 443
     to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 8000
+    to_port     = 8000
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
